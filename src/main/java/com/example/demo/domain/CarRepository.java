@@ -30,4 +30,8 @@ public interface CarRepository extends CrudRepository<Car, Long> {
     // SQL 문을 이용해 브랜드로 자동차를 검색
     @Query("select c from Car c where c.brand = ?1")
     List<Car> findByBrand(String brand);
+
+    // SQL 문을 이용해 브랜드로 자동차를 검색
+    @Query("select c from Car c where c.brand like %?1")
+    List<Car> findByBrandEndsWith(String brand);
 }

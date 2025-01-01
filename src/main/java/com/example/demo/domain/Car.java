@@ -17,6 +17,18 @@ public class Car {
     private int year;
     private int price;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner")
+    private Owner owner;
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
     public Long getId() {
         return id;
     }
@@ -74,13 +86,14 @@ public class Car {
     }
 
     // 생성자
-    public Car(String brand, String model, String color, String registerNumber, int year, int price) {
+    public Car(String brand, String model, String color, String registerNumber, int year, int price, Owner owner) {
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.registerNumber = registerNumber;
         this.year = year;
         this.price = price;
+        this.owner = owner;
     }
 
     // 기본 생성자 (JPA에서 필요)
