@@ -2,6 +2,11 @@ package com.example.demo.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Car {
@@ -16,17 +21,25 @@ public class Car {
     @Column(name = "`year`")
     private int year;
     private int price;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private Owner owner;
+//    @ManyToMany(mappedBy = "cars")
+//    private Set<Owner> owners = new HashSet<Owner>();
 
-    public Owner getOwner() {
-        return owner;
+    // 생성자
+    public Car(String brand, String model, String color, String registerNumber, int year, int price, Owner owner) {
+        this.brand = brand;
+        this.model = model;
+        this.color = color;
+        this.registerNumber = registerNumber;
+        this.year = year;
+        this.price = price;
+        this.owner = owner;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    // 기본 생성자 (JPA에서 필요)
+    public Car() {
     }
 
     public Long getId() {
@@ -85,18 +98,19 @@ public class Car {
         this.price = price;
     }
 
-    // 생성자
-    public Car(String brand, String model, String color, String registerNumber, int year, int price, Owner owner) {
-        this.brand = brand;
-        this.model = model;
-        this.color = color;
-        this.registerNumber = registerNumber;
-        this.year = year;
-        this.price = price;
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
-    // 기본 생성자 (JPA에서 필요)
-    public Car() {
-    }
+//    public Set<Owner> getOwners() {
+//        return owners;
+//    }
+//
+//    public void setOwners(Set<Owner> owners) {
+//        this.owners = owners;
+//    }
 }
